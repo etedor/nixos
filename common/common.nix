@@ -2,7 +2,7 @@
 
 let
   authorizedKeys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICgNd8ZgyJiay+vUZxvOzXqNsbmjhqzwFZx1U3+LnAVz eric@tedor.org"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICgNd8ZgyJiay+vUZxvOzXqNsbmjhqzwFZx1U3+LnAVz eric@machina"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINICpMw3RFwuHL0YbGzZRwsDao2oOtbi5ErAiO42rVki eric@nix-vscode"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC1NcdYnJ8R0Psv/at5ql4tI1pHzEUV8FR8lIpOjLW30 eric@nix-router-sea"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPpKGHFRcaoD5K6EWfpSnVIKM0dh5jUL3o217NS5hmaf et@et"
@@ -37,7 +37,7 @@ in
     extraGroups = [ "docker" "networkmanager" "wheel" ];
     packages = [
       flake-rebuild
-      nix-clone
+      nixos-clone
     ];
     openssh.authorizedKeys.keys = authorizedKeys;
   };
