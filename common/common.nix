@@ -3,11 +3,12 @@
 let
   authorizedKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICgNd8ZgyJiay+vUZxvOzXqNsbmjhqzwFZx1U3+LnAVz eric@machina"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINICpMw3RFwuHL0YbGzZRwsDao2oOtbi5ErAiO42rVki eric@nix-vscode"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC1NcdYnJ8R0Psv/at5ql4tI1pHzEUV8FR8lIpOjLW30 eric@nix-router-sea"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJ9Ya8PpfcuSHtX52hJUXMDFJwUUyJR+0s6FuSTfEKn eric@nix-vscode"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJSFNrJr2ZKEbNljmxxN4ib8Lf1vL4KJSSoWmbrssZOk eric@nix-router-sea"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPpKGHFRcaoD5K6EWfpSnVIKM0dh5jUL3o217NS5hmaf et@et"
   ];
 
+  bgptool = pkgs.writeShellScriptBin "bgptool" (builtins.readFile ./bin/bgptool.sh);
   flake-rebuild = pkgs.writeShellScriptBin "flake-rebuild" (builtins.readFile ./bin/flake-rebuild.sh);
   nixos-clone = pkgs.writeShellScriptBin "nixos-clone" (builtins.readFile ./bin/nixos-clone.sh);
 in
@@ -16,6 +17,12 @@ in
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
+    jq
+    vim
+
+    curl
+    wget
+
     duf
     glances
     iotop
@@ -23,22 +30,27 @@ in
     tmux
     tree
 
-    jq
-    vim
+    ethtool
+    ipcalc
+    iperf
+    mtr
+    netdata
+    nmap
+    speedtest-cli
+    tcpdump
+    telnet
+    traceroute
+    whois
 
-    curl
-    dnsutils
-    wget
+    bgptool
+    flake-rebuild
+    nixos-clone
   ];
 
   users.users.eric = {
     isNormalUser = true;
     description = "Eric Tedor";
     extraGroups = [ "docker" "networkmanager" "wheel" ];
-    packages = [
-      flake-rebuild
-      nixos-clone
-    ];
     openssh.authorizedKeys.keys = authorizedKeys;
   };
   users.users.root.openssh.authorizedKeys.keys = authorizedKeys;

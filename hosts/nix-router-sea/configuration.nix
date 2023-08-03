@@ -28,7 +28,7 @@
       allowedIPsAsRoutes = false;
       peers = [
         {
-          # vyos-ggz # test test test
+          # vyos-ggz
           publicKey = "H1UlGv6+J9r9XfMWTJxzbC5mIUbGTFvZMeHhJAvvRVQ=";
           allowedIPs = [ "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" ];
         }

@@ -12,4 +12,3 @@ in
   "nix-router-sea-wg0.age".publicKeys = eric ++ [ nix-router-sea ];
   "nix-router-sea-wg1.age".publicKeys = eric ++ [ nix-router-sea ];
 }
-

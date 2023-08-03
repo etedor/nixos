@@ -12,15 +12,9 @@ in
   boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = "1";
 
   environment.systemPackages = with pkgs; [
-    ethtool
     frr
-    iperf
+    
     iftop
-    mtr
-    netdata
-    nmap
-    speedtest-cli
-    tcpdump
     tshark
     wireguard-tools
     qrencode
