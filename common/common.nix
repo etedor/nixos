@@ -28,8 +28,10 @@ in
     glances
     iotop
     ncdu
-    tmux
     tree
+
+    sshs
+    tmux
 
     dig
     ethtool

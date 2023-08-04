@@ -28,6 +28,28 @@ in
       userEmail = "eric@tedor.org";
     };
 
+    programs.ssh = {
+      enable = true;
+      matchBlocks = {
+        "nix-vscode" = {
+          hostname = "10.0.2.153";
+          user = "eric";
+          # extraOptions = {
+          #   RequestTTY = "force";
+          #   RemoteCommand = "tmux attach || tmux new";
+          # };
+        };
+        "nix-router-sea" = {
+          hostname = "10.127.99.1";
+          user = "eric";
+          # extraOptions = {
+          #   RequestTTY = "force";
+          #   RemoteCommand = "tmux attach || tmux new";
+          # };
+        };
+      };
+    };
+
     programs.tmux = {
       enable = true;
       mouse = true;
@@ -83,4 +105,3 @@ in
     };
   };
 }
-
