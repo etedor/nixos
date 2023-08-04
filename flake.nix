@@ -14,7 +14,6 @@
           ./common/home.nix
           ./common/services.nix
           ./hosts/nix-vscode/configuration.nix
-          ./hosts/nix-vscode/hardware-configuration.nix
           agenix.nixosModules.default
           {
             environment.systemPackages = [ agenix.packages.x86_64-linux.default ];

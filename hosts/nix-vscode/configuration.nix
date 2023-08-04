@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./hardware-configuration.nix
+  ];
+
   networking.hostName = "nix-vscode";
   system.stateVersion = "23.05";
 

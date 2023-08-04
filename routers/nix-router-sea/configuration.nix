@@ -2,10 +2,12 @@
 
 let
   routerId = "10.127.99.1";
-  baseline = import ../common/bird.nix { routerId = routerId; };
 in
 {
-  imports = [ ../common/router.nix ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ../common/router.nix
+  ];
 
   networking.hostName = "nix-router-sea";
   system.stateVersion = "23.05";
@@ -84,19 +86,23 @@ in
   };
   services.openssh.openFirewall = false;
 
-  services.bird2 = {
-    enable = true;
-    config = ''
-      ${baseline}
+  services.bird2 =
+    let
+      baseline = import ../common/bird-baseline.nix { routerId = routerId; };
+    in
+    {
+      enable = true;
+      config = ''
+        ${baseline}
 
-      protocol bgp wg0 {
-        local as 65099;
-        neighbor 10.99.0.1 as 65000;
-        ipv4 {
-          import filter rfc1918_v4;
-          export filter rfc1918_v4;
-        };
-      }
-    '';
-  };
+        protocol bgp wg0 {
+          local as 65099;
+          neighbor 10.99.0.1 as 65000;
+          ipv4 {
+            import filter rfc1918_v4;
+            export filter rfc1918_v4;
+          };
+        }
+      '';
+    };
 }
