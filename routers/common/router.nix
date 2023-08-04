@@ -12,18 +12,14 @@ in
   boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = "1";
 
   environment.systemPackages = with pkgs; [
-    frr
-    
+    bird
+    wireguard-tools
+
     iftop
     tshark
-    wireguard-tools
     qrencode
 
     sho
     wg-mkclient
   ];
-
-  services.frr = {
-    bgp.enable = true;
-  };
 }

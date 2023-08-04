@@ -9,7 +9,8 @@ let
   ];
 
   bgptool = pkgs.writeShellScriptBin "bgptool" (builtins.readFile ./bin/bgptool.sh);
-  flake-rebuild = pkgs.writeShellScriptBin "flake-rebuild" (builtins.readFile ./bin/flake-rebuild.sh);
+  flake-test-remote = pkgs.writeShellScriptBin "flake-test-remote" (builtins.readFile ./bin/flake-test-remote.sh);
+  flake-test = pkgs.writeShellScriptBin "flake-test" (builtins.readFile ./bin/flake-test.sh);
   nixos-clone = pkgs.writeShellScriptBin "nixos-clone" (builtins.readFile ./bin/nixos-clone.sh);
 in
 {
@@ -30,7 +31,9 @@ in
     tmux
     tree
 
+    dig
     ethtool
+    inetutils
     ipcalc
     iperf
     mtr
@@ -38,12 +41,12 @@ in
     nmap
     speedtest-cli
     tcpdump
-    telnet
     traceroute
     whois
 
     bgptool
-    flake-rebuild
+    flake-test-remote
+    flake-test
     nixos-clone
   ];
 
