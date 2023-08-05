@@ -34,50 +34,12 @@ in
         "nix-vscode" = {
           hostname = "10.0.2.153";
           user = "eric";
-          # extraOptions = {
-          #   RequestTTY = "force";
-          #   RemoteCommand = "tmux attach || tmux new";
-          # };
         };
         "nix-router-sea" = {
           hostname = "10.127.99.1";
           user = "eric";
-          # extraOptions = {
-          #   RequestTTY = "force";
-          #   RemoteCommand = "tmux attach || tmux new";
-          # };
         };
       };
-    };
-
-    programs.tmux = {
-      enable = true;
-      mouse = true;
-      baseIndex = 1;
-      historyLimit = 50000; # 50,000 lines in history
-      package = pkgs.tmux;
-      terminal = "screen-256color";
-      escapeTime = 0;
-      prefix = "C-b"; # Using Ctrl-a as the prefix key instead of the default Ctrl-b
-      newSession = true;
-      plugins = with pkgs; [
-        tmuxPlugins.resurrect
-        {
-          plugin = tmuxPlugins.yank;
-          extraConfig = "set -g @plugin 'tmux-plugins/tmux-yank'";
-        }
-        {
-          plugin = tmuxPlugins.continuum;
-          extraConfig = ''
-            set -g @continuum-restore 'on'
-            set -g @continuum-save-interval '60' # Save every 60 minutes
-          '';
-        }
-      ];
-      extraConfig = ''
-        set-option -g set-clipboard on # Enables clipboard integration
-        bind r source-file ~/.tmux.conf \; display-message "~/.tmux.conf reloaded" # Keybind to reload tmux config
-      '';
     };
 
     programs.vim = {
