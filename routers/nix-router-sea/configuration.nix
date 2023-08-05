@@ -100,45 +100,6 @@ in
   };
 
   networking = {
-    # interfaces = {
-    #   lo = {
-    #     ipv4.addresses = [{
-    #       address = routerId;
-    #       prefixLength = 32;
-    #     }];
-    #   };
-    # };
-
-    # wireguard.interfaces = {
-    #   wg0 = {
-    #     ips = [ "10.99.0.0/31" ];
-    #     privateKeyFile = config.age.secrets.nix-router-sea-wg0.path;
-    #     listenPort = 51820;
-    #     allowedIPsAsRoutes = false;
-    #     peers = [
-    #       {
-    #         # vyos-ggz
-    #         publicKey = "H1UlGv6+J9r9XfMWTJxzbC5mIUbGTFvZMeHhJAvvRVQ=";
-    #         # allowedIPs = [ "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" ];
-    #         allowedIPs = [ "0.0.0.0/0" ];
-    #       }
-    #     ];
-    #   };
-    #   wg1 = {
-    #     ips = [ "10.99.1.1/24" ];
-    #     privateKeyFile = config.age.secrets.nix-router-sea-wg1.path;
-    #     listenPort = 51821;
-    #     allowedIPsAsRoutes = false;
-    #     peers = [
-    #       {
-    #         # pine
-    #         publicKey = "xBNt1u2PhjNwRdZbGqPUYg89ZgXtK96CdzdgGHBkzgE=";
-    #         allowedIPs = [ "10.99.1.0/24" ];
-    #       }
-    #     ];
-    #   };
-    # };
-
     nftables.enable = true;
     firewall =
       let
