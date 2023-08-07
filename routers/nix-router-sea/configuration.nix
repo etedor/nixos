@@ -36,6 +36,8 @@ in
     domain = options.domainName;
     # Let networkd manage things
     useDHCP = false;
+    nat.enable = false;
+    firewall.enable = false;
   };
 
   # https://nixos.wiki/wiki/Systemd-networkd
@@ -99,43 +101,53 @@ in
     };
   };
 
-  networking = {
-    nftables.enable = true;
-    firewall =
-      let
-        ifaceTrustList = [ "wg0" "wg1" ];
-        ifaceUntrustList = [ "ens3" ];
+  # extraForwardRules = ''
+  #   iifname ${ifaceTrust}     oifname ${ifaceTrust}                       accept
+  #   iifname ${ifaceUntrust}   oifname ${ifaceTrust} tcp dport 443         accept
+  # '';
+  # extraInputRules = ''
+  #   iifname ${ifaceTrust}     ip daddr ${options.routerId}  tcp dport 22          accept
+  #   iifname ${ifaceTrust}                                   tcp dport 179         accept
+  #   iifname ${ifaceUntrust}                                 udp dport ${wgPorts}  accept
+  # '';
 
-        ifaceTrust = "{ ${builtins.concatStringsSep ", " ifaceTrustList} }";
-        ifaceUntrust = "{ ${builtins.concatStringsSep ", " ifaceUntrustList} }";
+  networking.nftables =
+    let
+      ifaceTrustList = [ "wg0" "wg1" ];
+      ifaceUntrustList = [ "ens3" ];
 
-        wgPorts = "{ ${builtins.concatStringsSep ", " (builtins.map toString (builtins.attrValues (builtins.mapAttrs (name: value: value.wireguardConfig.ListenPort) config.systemd.network.netdevs)))} }";
-      in
-      {
-        enable = true;
-        allowPing = true;
-        logReversePathDrops = true;
-        filterForward = false;
-        extraForwardRules = ''
-          iifname ${ifaceTrust}     oifname ${ifaceTrust}                       accept
-          iifname ${ifaceUntrust}   oifname ${ifaceTrust} tcp dport 443         accept
-        '';
-        extraInputRules = ''
-          iifname ${ifaceTrust}     ip daddr ${options.routerId}  tcp dport 22          accept
-          iifname ${ifaceTrust}                                   tcp dport 179         accept
-          iifname ${ifaceUntrust}                                 udp dport ${wgPorts}  accept
-        '';
-      };
-    nat = {
+      ifaceTrust = "{ ${builtins.concatStringsSep ", " ifaceTrustList} }";
+      ifaceUntrust = "{ ${builtins.concatStringsSep ", " ifaceUntrustList} }";
+
+      wgPorts = "{ ${builtins.concatStringsSep ", " (builtins.map toString (builtins.attrValues (builtins.mapAttrs (name: value: value.wireguardConfig.ListenPort) config.systemd.network.netdevs)))} }";
+
+      baseline = import
+        ../common/nftables.nix
+        {
+          extraInputRules = [
+            "iifname ${ifaceTrust} ip daddr ${options.routerId} tcp dport 22 accept"
+            "iifname ${ifaceTrust} tcp dport 179 accept"
+            "iifname ${ifaceUntrust} udp dport ${wgPorts} accept"
+          ];
+          extraOutputRules = [ ];
+          extraForwardRules = [
+            "iifname ${ifaceTrust} oifname ${ifaceTrust} accept"
+
+            "iifname ${ifaceUntrust} oifname ${ifaceTrust} tcp dport 443 accept"
+            "iifname ${ifaceTrust} oifname ${ifaceUntrust} tcp sport 443 accept"
+          ];
+          extraPreRoutingRules = [
+            "iifname ${ifaceUntrust} tcp dport 443 dnat ip to 10.0.2.91:443"
+          ];
+          extraPostRoutingRules = [ ];
+        };
+    in
+    {
       enable = true;
-      externalInterface = "ens3";
-      internalInterfaces = [ "wg0" "wg1" ];
-      internalIPs = [ "10.0.0.0/8" ];
-      forwardPorts = [
-        { sourcePort = 443; destination = "10.0.2.91:443"; proto = "tcp"; }
-      ];
+      ruleset = ''
+        ${baseline}
+      '';
     };
-  };
   services.openssh.openFirewall = false;
 
   services.bird2 =
