@@ -1,4 +1,9 @@
-{ extraInputRules ? [ ], extraOutputRules ? [ ], extraForwardRules ? [ ], extraPreRoutingRules ? [ ], extraPostRoutingRules ? [ ] }:
+{ extraInputRules ? [ ]
+, extraOutputRules ? [ ]
+, extraForwardRules ? [ ]
+, extraPreRoutingRules ? [ ]
+, extraPostRoutingRules ? [ ]
+}:
 
 let
   # c.f. https://wiki.gbe0.com/en/linux/firewalling-and-filtering/nftables/template-inbound-only

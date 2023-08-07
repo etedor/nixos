@@ -1,4 +1,4 @@
-{ routerId }:
+{ extraConfig, routerId }:
 
 let
   baseline = ''
@@ -28,6 +28,8 @@ let
         import filter rfc1918_v4;
       };
     }
+    
+    ${extraConfig}
   '';
 in
 baseline
