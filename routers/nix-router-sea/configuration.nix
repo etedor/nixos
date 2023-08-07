@@ -22,13 +22,13 @@ in
   networking = {
     hostName = options.hostName;
     domain = options.domainName;
+    useDHCP = false; # Managed by systemd-networkd
+  };
 
-    # Let networkd manage things
-    useDHCP = false;
-
-    # We're managing the firewall ourselves
-    nat.enable = false;
+  # We're managing the firewall ourselves
+  networking = {
     firewall.enable = false;
+    nat.enable = false;
   };
   services.openssh.openFirewall = false;
 
@@ -77,7 +77,6 @@ in
     };
   };
 
-
   networking.nftables =
     let
       zoneTrust = [ "wg0" "wg1" ];
@@ -95,7 +94,7 @@ in
           { name = "Allow BGP"; iif = zoneTrust; proto = "tcp"; dport = 179; action = "accept"; }
           { name = "Allow WireGuard"; iif = zoneUntrust; dport = wgPorts; proto = "udp"; action = "accept"; }
 
-          { name = "Allow ntopng"; iif = zoneTrust; dip = options.routerId; proto = "tcp"; dport = 3000; action = "accept"; }
+          # { name = "Allow ntopng"; iif = zoneTrust; dip = options.routerId; proto = "tcp"; dport = 3000; action = "accept"; }
         ];
         extraForwardRules = map mkRule [
           { name = "Allow trust to trust"; iif = zoneTrust; oif = zoneTrust; action = "accept"; }
