@@ -18,6 +18,7 @@ in
     wireguard-tools
 
     iftop
+    termshark
     tshark
     qrencode
 
