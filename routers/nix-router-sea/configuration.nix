@@ -93,8 +93,6 @@ in
           { name = "Allow SSH"; iif = zoneTrust; dip = options.routerId; proto = "tcp"; dport = 22; action = "accept"; }
           { name = "Allow BGP"; iif = zoneTrust; proto = "tcp"; dport = 179; action = "accept"; }
           { name = "Allow WireGuard"; iif = zoneUntrust; dport = wgPorts; proto = "udp"; action = "accept"; }
-
-          # { name = "Allow ntopng"; iif = zoneTrust; dip = options.routerId; proto = "tcp"; dport = 3000; action = "accept"; }
         ];
         extraForwardRules = map mkRule [
           { name = "Allow trust to trust"; iif = zoneTrust; oif = zoneTrust; action = "accept"; }
