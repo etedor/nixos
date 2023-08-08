@@ -5,7 +5,7 @@ let
     hostName = "nix-router-sea";
     domainName = "int.tedor.org";
 
-    extInterface = "ens3";
+    extIntf = "ens3";
     localAs = 65099;
     routerId = "10.127.99.1";
   };
@@ -25,7 +25,7 @@ in
     useDHCP = false; # Managed by systemd-networkd
   };
 
-  # We're managing the firewall ourselves
+  # We're managing the firewall ourself
   networking = {
     firewall.enable = false;
     nat.enable = false;
@@ -71,7 +71,7 @@ in
 
     networks = {
       "01-lo" = { name = "lo"; address = [ options.routerId ]; };
-      "02-${options.extInterface}" = { name = options.extInterface; networkConfig = { DHCP = "yes"; }; };
+      "02-${options.extIntf}" = { name = options.extIntf; networkConfig = { DHCP = "yes"; }; };
       "10-wg0" = { matchConfig.Name = "wg0"; address = [ "10.99.0.0/31" ]; };
       "20-wg1" = { matchConfig.Name = "wg1"; address = [ "10.99.1.1/24" ]; };
     };
@@ -79,39 +79,66 @@ in
 
   networking.nftables =
     let
-      zoneTrust = [ "wg0" "wg1" ];
-      zoneUntrust = [ options.extInterface ];
+      nft = import ../common/lib/nftables.nix { inherit lib; };
+      wg = import ../common/lib/wireguard.nix { inherit config; };
 
-      baseline = import ../common/templates/nftables.nix;
-      wgPorts = import ../common/lib/make-wg-ports.nix { inherit config; };
-      mkRule = import ../common/lib/make-nft-rule.nix { inherit lib; };
+      zoneTrust = [ "wg0" "wg1" ];
+      zoneUntrust = [ options.extIntf ];
+
+      tcpAccept = { proto = "tcp"; action = "accept"; };
+      udpAccept = { proto = "udp"; action = "accept"; };
+
+      dnatIntfs = { iifs = [ options.extIntf ]; oifs = zoneTrust; };
     in
     {
       enable = true;
-      ruleset = baseline {
-        extraInputRules = map mkRule [
-          { name = "Allow SSH"; iif = zoneTrust; dip = options.routerId; proto = "tcp"; dport = 22; action = "accept"; }
-          { name = "Allow BGP"; iif = zoneTrust; proto = "tcp"; dport = 179; action = "accept"; }
-          { name = "Allow WireGuard"; iif = zoneUntrust; dport = wgPorts; proto = "udp"; action = "accept"; }
+      ruleset = nft.baseline {
+        extraInputRules = map nft.mkRule [
+          ({
+            name = "BGP";
+            iifs = zoneTrust;
+            dpts = [ 179 ];
+          } // tcpAccept)
+          ({
+            name = "SSH";
+            iifs = zoneTrust;
+            dips = [ options.routerId ];
+            dpts = [ 22 ];
+          } // tcpAccept)
+          ({
+            name = "WireGuard";
+            iifs = zoneUntrust;
+            dpts = wg.ports;
+          } // udpAccept)
         ];
-        extraForwardRules = map mkRule [
-          { name = "Allow trust to trust"; iif = zoneTrust; oif = zoneTrust; action = "accept"; }
-          { name = "Allow untrust to trust for DNAT"; iif = zoneUntrust; oif = zoneTrust; proto = "tcp"; dport = 443; action = "accept"; }
-          { name = "Allow trust to untrust for DNAT"; iif = zoneTrust; oif = zoneUntrust; proto = "tcp"; sport = 443; action = "accept"; }
+
+        extraForwardRules = map nft.mkRule [
+          {
+            name = "trust to trust";
+            iifs = zoneTrust;
+            oifs = zoneTrust;
+            action = "accept";
+          }
         ];
-        extraPreRoutingRules = [
-          "iifname ${options.extInterface} tcp dport 443 dnat ip to 10.0.2.91:443 comment \"DNAT for HTTPS\""
+
+        dnatRules = map nft.mkDNATRule [
+          ({
+            name = "nginx";
+            ip = "10.0.2.91";
+            pt = "443";
+            proto = "tcp";
+          } // dnatIntfs)
         ];
       };
     };
 
   services.bird2 =
     let
-      baseline = import ../common/templates/bird.nix;
+      bird = import ../common/lib/bird.nix;
     in
     {
       enable = true;
-      config = baseline {
+      config = bird.baseline {
         routerId = options.routerId;
         extraConfig = ''
           protocol bgp wg0 {

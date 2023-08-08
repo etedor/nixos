@@ -1,7 +1,6 @@
-{ extraConfig, routerId }:
-
 let
-  baseline = ''
+  # TODO: make routerId mandatory
+  baseline = { extraConfig ? "", routerId ? "" }: ''
     router id ${routerId};
 
     filter rfc1918_v4 {
@@ -28,8 +27,10 @@ let
         import filter rfc1918_v4;
       };
     }
-    
+
     ${extraConfig}
   '';
 in
-baseline
+{
+  baseline = baseline;
+}
