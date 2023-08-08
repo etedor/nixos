@@ -1,26 +1,29 @@
 #!/usr/bin/env bash
 # Watch log messages from the nftables firewall
-# Usage: nfw.sh [filters]
-# Example: nfw.sh --chain=input --dpt=23
+# Usage: nfw.sh [filters] [--full]
+# Example: nfw.sh --chain=input --dpt=23 --full
+
+# Fields to be displayed by default
+DEFAULT_FIELDS="CHAIN RULE IN OUT SRC DST PROTO SPT DPT"
 
 get_color() {
-    # Get a color code for the given string
     local str="$1"
     local color_code=$(($(echo -n "$str" | cksum | cut -f1 -d' ') % 6 + 31))
     echo "$color_code"
 }
 
 colorize_values() {
-    # Colorize the values of the key=value pairs
     local entry="$1"
     for word in $entry; do
         if [[ "$word" == *=* ]]; then
             key="${word%=*}"
             value="${word#*=}"
 
-            color=$(get_color "$value")
-
-            printf "%s=\033[%sm%s\033[0m " "$key" "$color" "$value"
+            # If full output or key is in the default fields, then colorize and display
+            if $FULL_OUTPUT || [[ " $DEFAULT_FIELDS " == *" $key "* ]]; then
+                color=$(get_color "$value")
+                printf "%s=\033[%sm%s\033[0m " "$key" "$color" "$value"
+            fi
         else
             printf "%s " "$word"
         fi
@@ -33,7 +36,6 @@ filter_line() {
     for arg in "${filters[@]}"; do
         key="${arg%=*}"
         value="${arg#*=}"
-        # Convert to lowercase and check if the line contains the key=value pair
         if [[ "${line,,}" != *"${key,,}=${value,,}"[[:space:]]* ]] && [[ "${line,,}" != *"${key,,}=${value,,}"$ ]]; then
             return 1
         fi
@@ -43,22 +45,30 @@ filter_line() {
 
 # Construct a list of filters from the arguments
 filters=()
+FULL_OUTPUT=false
+
 while [[ $# -gt 0 ]]; do
     arg="$1"
     shift
-    if [[ "$arg" == "--"*"="* ]]; then
-        # This handles --key=value format
-        field="${arg#--}"
-        field="${field%=*}"
-        value="${arg#*=}"
-        filters+=("$field=$value")
-    elif [[ "$arg" == "--"* ]]; then
-        # This handles --key value format
-        field="${arg#--}"
-        value="$1"
-        shift
-        filters+=("$field=$value")
-    fi
+    case "$arg" in
+        --full)
+            FULL_OUTPUT=true
+            ;;
+        --*=*)
+            # This handles --key=value format
+            field="${arg#--}"
+            field="${field%=*}"
+            value="${arg#*=}"
+            filters+=("$field=$value")
+            ;;
+        --*)
+            # This handles --key value format
+            field="${arg#--}"
+            value="$1"
+            shift
+            filters+=("$field=$value")
+            ;;
+    esac
 done
 
 # Read dmesg output line by line
