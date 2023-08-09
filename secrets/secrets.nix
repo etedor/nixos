@@ -5,10 +5,10 @@ let
   eric = [ eric_machina eric_nix-vscode ];
 
   # host keys
-  nix-router-sea = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHqcrgjHPx1SbllfVSCLcj/g29HAW/qcv6i6ZYoNs99h";
   nix-vscode = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFVyPMj/Xq3Nxha/vj1S9xCaEWQMcjsweLpMeDDFjzmN";
+  rt-sea = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHqcrgjHPx1SbllfVSCLcj/g29HAW/qcv6i6ZYoNs99h";
 in
 {
-  "nix-router-sea-wg0.age".publicKeys = eric ++ [ nix-router-sea ];
-  "nix-router-sea-wg1.age".publicKeys = eric ++ [ nix-router-sea ];
+  "rt-sea-wg0.age".publicKeys = eric ++ [ rt-sea ];
+  "rt-sea-wg1.age".publicKeys = eric ++ [ rt-sea ];
 }

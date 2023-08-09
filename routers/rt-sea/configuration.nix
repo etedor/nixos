@@ -2,7 +2,7 @@
 
 let
   options = {
-    hostName = "nix-router-sea";
+    hostName = "rt-sea";
     domainName = "int.tedor.org";
 
     extIntf = "ens3";
@@ -33,8 +33,8 @@ in
   services.openssh.openFirewall = false;
 
   age.secrets = {
-    nix-router-sea-wg0 = { file = ../../secrets/nix-router-sea-wg0.age; mode = "444"; };
-    nix-router-sea-wg1 = { file = ../../secrets/nix-router-sea-wg1.age; mode = "444"; };
+    rt-sea-wg0 = { file = ../../secrets/rt-sea-wg0.age; mode = "444"; };
+    rt-sea-wg1 = { file = ../../secrets/rt-sea-wg1.age; mode = "444"; };
   };
 
   # https://nixos.wiki/wiki/Systemd-networkd
@@ -44,7 +44,7 @@ in
       "10-wg0" = {
         netdevConfig = { Name = "wg0"; Kind = "wireguard"; };
         wireguardConfig = {
-          PrivateKeyFile = config.age.secrets.nix-router-sea-wg0.path;
+          PrivateKeyFile = config.age.secrets.rt-sea-wg0.path;
           ListenPort = 51820;
         };
         wireguardPeers = [{
@@ -57,7 +57,7 @@ in
       "20-wg1" = {
         netdevConfig = { Name = "wg1"; Kind = "wireguard"; };
         wireguardConfig = {
-          PrivateKeyFile = config.age.secrets.nix-router-sea-wg1.path;
+          PrivateKeyFile = config.age.secrets.rt-sea-wg1.path;
           ListenPort = 51821;
         };
         wireguardPeers = [{

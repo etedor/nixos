@@ -22,13 +22,13 @@
         ];
       };
 
-      nix-router-sea = nixpkgs.lib.nixosSystem {
+      rt-sea = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./common/common.nix
           ./common/home.nix
           ./common/services.nix
-          ./routers/nix-router-sea/configuration.nix
+          ./routers/rt-sea/configuration.nix
 
           agenix.nixosModules.default
           { environment.systemPackages = [ agenix.packages.x86_64-linux.default ]; }
