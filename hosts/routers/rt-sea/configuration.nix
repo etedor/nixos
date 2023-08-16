@@ -33,8 +33,8 @@ in
   services.openssh.openFirewall = false;
 
   age.secrets = {
-    rt-sea-wg0 = { file = ../../secrets/rt-sea-wg0.age; mode = "444"; };
-    rt-sea-wg1 = { file = ../../secrets/rt-sea-wg1.age; mode = "444"; };
+    rt-sea-wg0 = { file = ../../../secrets/rt-sea-wg0.age; mode = "444"; };
+    rt-sea-wg1 = { file = ../../../secrets/rt-sea-wg1.age; mode = "444"; };
   };
 
   # https://nixos.wiki/wiki/Systemd-networkd

@@ -15,7 +15,7 @@
           ./common/common.nix
           ./common/home.nix
           ./common/services.nix
-          ./hosts/nix-vscode/configuration.nix
+          ./hosts/servers/nix-vscode/configuration.nix
 
           agenix.nixosModules.default
           { environment.systemPackages = [ agenix.packages.x86_64-linux.default ]; }
@@ -28,7 +28,7 @@
           ./common/common.nix
           ./common/home.nix
           ./common/services.nix
-          ./routers/rt-sea/configuration.nix
+          ./hosts/routers/rt-sea/configuration.nix
 
           agenix.nixosModules.default
           { environment.systemPackages = [ agenix.packages.x86_64-linux.default ]; }
