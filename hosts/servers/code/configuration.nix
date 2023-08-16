@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = "nix-vscode";
+  networking.hostName = "code";
   system.stateVersion = "23.05";
 
   boot.loader.systemd-boot.enable = true;

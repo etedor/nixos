@@ -9,13 +9,13 @@
   outputs = { self, nixpkgs, agenix }: {
     nixosConfigurations = {
 
-      nix-vscode = nixpkgs.lib.nixosSystem {
+      code = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./common/common.nix
           ./common/home.nix
           ./common/services.nix
-          ./hosts/servers/nix-vscode/configuration.nix
+          ./hosts/servers/code/configuration.nix
 
           agenix.nixosModules.default
           { environment.systemPackages = [ agenix.packages.x86_64-linux.default ]; }
