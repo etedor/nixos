@@ -71,7 +71,7 @@ in
 
     networks = {
       "01-lo" = { name = "lo"; address = [ options.routerId ]; };
-      "02-${options.extIntf}" = { name = options.extIntf; networkConfig = { DHCP = "yes"; }; };
+      "02-${options.extIntf}" = { name = options.extIntf; address = [ "66.42.76.194" ]; networkConfig = { DHCP = "yes"; }; };
       "10-wg0" = { matchConfig.Name = "wg0"; address = [ "10.99.0.0/31" ]; };
       "20-wg1" = { matchConfig.Name = "wg1"; address = [ "10.99.1.1/24" ]; };
     };
@@ -135,21 +135,26 @@ in
   services.bird2 =
     let
       bird = import ../common/lib/bird.nix;
+      defaults = {
+        localAs = options.localAs;
+        exportFilter = "rfc1918_v4";
+        importFilter = "rfc1918_v4";
+      };
     in
     {
       enable = true;
       config = bird.baseline {
         routerId = options.routerId;
+        peers = map bird.mkPeer [
+          ({
+            name = "rt_ggz";
+            ip = "10.99.0.1";
+            remoteAs = 65000;
+          } // defaults)
+        ];
         extraConfig = ''
-          protocol bgp wg0 {
-            local as ${toString options.localAs};
-            neighbor 10.99.0.1 as 65000;
-            ipv4 {
-              import filter rfc1918_v4;
-              export filter rfc1918_v4;
-            };
-          }
         '';
       };
     };
 }
+
