@@ -42,22 +42,6 @@ in
       };
     };
 
-    programs.starship = {
-      enable = true;
-      settings = {
-        hostname = {
-          ssh_symbol = "🌎 ";
-          style = "bold green";
-        };
-        nix_shell = {
-          symbol = "❄️ ";
-        };
-        time = {
-          disabled = false;
-        };
-      };
-    };
-
     programs.vim = {
       enable = true;
       plugins = with pkgs.vimPlugins; [

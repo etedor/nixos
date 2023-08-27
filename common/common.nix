@@ -18,6 +18,9 @@ in
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
+    fish
+    starship
+
     jq
     vim
 
@@ -57,6 +60,22 @@ in
     '';
   };
 
+  programs.starship = {
+    enable = true;
+    settings = {
+      hostname = {
+        ssh_symbol = "🌎 ";
+        style = "bold green";
+      };
+      nix_shell = {
+        symbol = "❄️ ";
+      };
+      time = {
+        disabled = false;
+      };
+    };
+  };
+
   users.users.eric = {
     isNormalUser = true;
     description = "Eric Tedor";
@@ -64,7 +83,11 @@ in
     openssh.authorizedKeys.keys = authorizedKeys;
     shell = pkgs.fish;
   };
-  users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
+
+  users.users.root = {
+    openssh.authorizedKeys.keys = authorizedKeys;
+    shell = pkgs.fish;
+  };
 
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
