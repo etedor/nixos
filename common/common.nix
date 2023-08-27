@@ -65,7 +65,7 @@ in
     enable = true;
     settings = {
       hostname = {
-        ssh_symbol = "🌎 ";
+        ssh_symbol = "⚡ ";
         style = "bold green";
       };
       time = {
