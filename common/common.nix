@@ -50,11 +50,19 @@ in
     nixos-clone
   ];
 
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      starship init fish | source
+    '';
+  };
+
   users.users.eric = {
     isNormalUser = true;
     description = "Eric Tedor";
     extraGroups = [ "docker" "networkmanager" "wheel" ];
     openssh.authorizedKeys.keys = authorizedKeys;
+    shell = pkgs.fish;
   };
   users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
 
