@@ -67,9 +67,6 @@ in
         ssh_symbol = "🌎 ";
         style = "bold green";
       };
-      nix_shell = {
-        symbol = "❄️ ";
-      };
       time = {
         disabled = false;
       };
