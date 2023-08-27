@@ -36,6 +36,7 @@ in
 
     dig
     ethtool
+    grepcidr
     inetutils
     ipcalc
     iperf
