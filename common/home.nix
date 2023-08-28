@@ -3,7 +3,7 @@
 let
   home-manager = builtins.fetchTarball {
     url = "https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz";
-    sha256 = "0dfshsgj93ikfkcihf4c5z876h4dwjds998kvgv7sqbfv0z6a4bc";
+    sha256 = "1lhkqlizabh107mgj9b3fsfzz6cwpcmplkwspqqavwqr9dlmlwc4";
   };
 in
 {
@@ -11,16 +11,6 @@ in
 
   home-manager.users.eric = {
     home.stateVersion = "23.05";
-
-    programs.bash = {
-      enable = true;
-      initExtra = ''
-        export HISTSIZE=10000
-        export HISTFILESIZE=20000
-        shopt -s histappend
-        PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
-      '';
-    };
 
     programs.git = {
       enable = true;
@@ -31,11 +21,11 @@ in
     programs.ssh = {
       enable = true;
       matchBlocks = {
-        "nix-vscode" = {
+        "code" = {
           hostname = "10.0.2.153";
           user = "eric";
         };
-        "nix-router-sea" = {
+        "rt-sea" = {
           hostname = "10.127.99.1";
           user = "eric";
         };
