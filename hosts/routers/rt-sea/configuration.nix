@@ -60,12 +60,22 @@ in
           PrivateKeyFile = config.age.secrets.rt-sea-wg1.path;
           ListenPort = 51821;
         };
-        wireguardPeers = [{
-          wireguardPeerConfig = {
-            PublicKey = "xBNt1u2PhjNwRdZbGqPUYg89ZgXtK96CdzdgGHBkzgE=";
-            AllowedIPs = [ "10.99.1.0/24" ];
-          };
-        }];
+        wireguardPeers = [
+          {
+            wireguardPeerConfig = {
+              # pine
+              PublicKey = "xBNt1u2PhjNwRdZbGqPUYg89ZgXtK96CdzdgGHBkzgE=";
+              AllowedIPs = [ "10.99.1.11/32" ];
+            };
+          }
+          {
+            wireguardPeerConfig = {
+              # et
+              PublicKey = "Hu7N0lVpDz2JjH3CiE2D1x0jHlWbsXCbVGPeoC4DpV4=";
+              AllowedIPs = [ "10.99.1.12/32" ];
+            };
+          }
+        ];
       };
     };
 
