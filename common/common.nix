@@ -7,6 +7,8 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJSFNrJr2ZKEbNljmxxN4ib8Lf1vL4KJSSoWmbrssZOk eric@rt-sea"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPpKGHFRcaoD5K6EWfpSnVIKM0dh5jUL3o217NS5hmaf et@et"
   ];
+
+  shell = if config.networking.hostName != "code" then pkgs.fish else pkgs.bash;
 in
 {
   imports = [
@@ -23,10 +25,12 @@ in
     description = "Eric Tedor";
     extraGroups = [ "docker" "networkmanager" "wheel" ];
     openssh.authorizedKeys.keys = authorizedKeys;
+    shell = shell;
   };
 
   users.users.root = {
     openssh.authorizedKeys.keys = authorizedKeys;
+    shell = shell;
   };
 
   i18n.defaultLocale = "en_US.UTF-8";

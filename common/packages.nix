@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   bgptool = pkgs.writeShellScriptBin "bgptool" (builtins.readFile ./bin/bgptool.sh);
@@ -46,11 +46,6 @@ in
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
-      # c.f. https://github.com/Mic92/nix-ld/issues/59
-      if test -n "$NIX_LD_LIBRARY_PATH"
-        set -x LD_LIBRARY_PATH $NIX_LD_LIBRARY_PATH
-      end
-
       starship init fish | source
     '';
   };
