@@ -131,14 +131,7 @@ in
           }
         ];
 
-        dnatRules = map nft.mkDNATRule [
-          ({
-            name = "nginx";
-            ip = "10.0.2.91";
-            pt = "443";
-            proto = "tcp";
-          } // dnatIntfs)
-        ];
+        dnatRules = map nft.mkDNATRule [ ];
       };
     };
 
