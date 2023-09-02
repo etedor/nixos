@@ -13,8 +13,6 @@
         system = "x86_64-linux";
         modules = [
           ./common/common.nix
-          ./common/home.nix
-          ./common/services.nix
           ./hosts/servers/code/configuration.nix
 
           agenix.nixosModules.default
@@ -26,8 +24,6 @@
         system = "x86_64-linux";
         modules = [
           ./common/common.nix
-          ./common/home.nix
-          ./common/services.nix
           ./hosts/routers/rt-sea/configuration.nix
 
           agenix.nixosModules.default

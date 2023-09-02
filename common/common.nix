@@ -7,72 +7,15 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJSFNrJr2ZKEbNljmxxN4ib8Lf1vL4KJSSoWmbrssZOk eric@rt-sea"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPpKGHFRcaoD5K6EWfpSnVIKM0dh5jUL3o217NS5hmaf et@et"
   ];
-
-  bgptool = pkgs.writeShellScriptBin "bgptool" (builtins.readFile ./bin/bgptool.sh);
-  flake-test-remote = pkgs.writeShellScriptBin "flake-test-remote" (builtins.readFile ./bin/flake-test-remote.sh);
-  flake-test = pkgs.writeShellScriptBin "flake-test" (builtins.readFile ./bin/flake-test.sh);
-  nixos-clone = pkgs.writeShellScriptBin "nixos-clone" (builtins.readFile ./bin/nixos-clone.sh);
 in
 {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
-    fish
-    starship
-
-    jq
-    vim
-
-    curl
-    wget
-
-    duf
-    glances
-    iotop
-    ncdu
-    sshs
-    tree
-
-    dig
-    ethtool
-    grepcidr
-    inetutils
-    ipcalc
-    iperf
-    mtr
-    netdata
-    nmap
-    speedtest-cli
-    tcpdump
-    traceroute
-    whois
-
-    bgptool
-    flake-test-remote
-    flake-test
-    nixos-clone
+  imports = [
+    ./home.nix
+    ./packages.nix
+    ./services.nix
   ];
 
-  programs.fish = {
-    enable = true;
-    interactiveShellInit = ''
-      starship init fish | source
-    '';
-  };
-
-  programs.starship = {
-    enable = true;
-    settings = {
-      hostname = {
-        ssh_symbol = "⚡ ";
-        style = "bold green";
-      };
-      time = {
-        disabled = false;
-      };
-    };
-  };
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   users.users.eric = {
     isNormalUser = true;
