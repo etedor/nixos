@@ -6,7 +6,7 @@
 set -e
 
 tmp_dir=$(mktemp -d)
-git clone "$1" "$tmp_dir"
+git clone "$1" "${tmp_dir}"
 sudo rm -r /etc/nixos/* || true
-sudo cp -r "$tmp_dir"/* /etc/nixos/
+sudo cp -r "${tmp_dir}"/* /etc/nixos/
 sudo chown -R root:root /etc/nixos

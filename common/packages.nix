@@ -2,9 +2,8 @@
 
 let
   bgptool = pkgs.writeShellScriptBin "bgptool" (builtins.readFile ./bin/bgptool.sh);
-  flake-test-remote = pkgs.writeShellScriptBin "flake-test-remote" (builtins.readFile ./bin/flake-test-remote.sh);
-  flake-test = pkgs.writeShellScriptBin "flake-test" (builtins.readFile ./bin/flake-test.sh);
-  nixos-clone = pkgs.writeShellScriptBin "nixos-clone" (builtins.readFile ./bin/nixos-clone.sh);
+  nix-build = pkgs.writeShellScriptBin "nix-build" (builtins.readFile ./bin/nix-build.sh);
+  nix-clone = pkgs.writeShellScriptBin "nix-clone" (builtins.readFile ./bin/nix-clone.sh);
 in
 {
   nixpkgs.config.allowUnfree = true;
@@ -40,9 +39,8 @@ in
     whois
 
     bgptool
-    flake-test-remote
-    flake-test
-    nixos-clone
+    nix-build
+    nix-clone
   ];
 
   programs.fish = {
