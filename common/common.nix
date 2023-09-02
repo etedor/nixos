@@ -11,6 +11,7 @@ in
 {
   imports = [
     ./home.nix
+    ./globals.nix
     ./packages.nix
     ./services.nix
   ];

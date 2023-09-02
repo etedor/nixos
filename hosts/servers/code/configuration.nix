@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  zone = "et42.net";
+  zone = config.lib.globals.zone;
 in
 {
   imports = [
