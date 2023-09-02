@@ -45,6 +45,14 @@ in
     NIX_LD = lib.mkForce "${pkgs.stdenv.cc.bintools.dynamicLinker}";
   };
 
+  virtualisation.oci-containers.containers = {
+    flame = {
+      image = "pawelmalak/flame:2.3.1";
+      ports = [ "5005:5005" ];
+      volumes = [ "flame:/app/data" ];
+    };
+  };
+
   age.secrets = {
     code-acme = {
       file = ../../../secrets/code-acme.age;
@@ -97,6 +105,13 @@ in
 
       virtualHosts = {
         "_" = { locations."/" = { return = "404"; }; };
+
+        "go.${zone}" = ({
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:5005";
+            proxyWebsockets = true;
+          };
+        } // defaults);
 
         "ha.${zone}" = ({
           locations."/" = {
