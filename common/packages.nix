@@ -11,18 +11,17 @@ in
     fish
     starship
 
-    jq
-    vim
-
     curl
-    wget
-
     duf
+    fd
     glances
     iotop
+    jq
     ncdu
     sshs
     tree
+    vim
+    wget
 
     dig
     ethtool
