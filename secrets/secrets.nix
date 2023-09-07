@@ -10,6 +10,7 @@ let
 in
 {
   "code-acme.age".publicKeys = eric ++ [ code ];
+  "code-mailgun.age".publicKeys = eric ++ [ code ];
   "code-restic-pass.age".publicKeys = eric ++ [ code ];
   "code-restic-repo.age".publicKeys = eric ++ [ code ];
   "rt-sea-wg0.age".publicKeys = eric ++ [ rt-sea ];

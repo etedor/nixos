@@ -9,6 +9,7 @@ in
 
     ./nginx.nix
     ./restic.nix
+    ./zfs.nix
   ];
 
   networking.hostName = "code";
