@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  imports = [ ./msmtp ];
+
   time.timeZone = "America/Los_Angeles";
 
   services = {
