@@ -4,36 +4,6 @@ let
   zone = config.lib.globals.zone;
 in
 {
-  virtualisation.oci-containers.containers = {
-    flame = {
-      image = "pawelmalak/flame:2.3.1";
-      ports = [ "5005:5005" ];
-      volumes = [ "flame:/app/data" ];
-    };
-  };
-
-  age.secrets = {
-    code-acme = {
-      file = ../../../secrets/code-acme.age;
-      mode = "400";
-      owner = "acme";
-      group = "acme";
-    };
-  };
-
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "admin@${zone}";
-
-    certs."${zone}" = {
-      domain = "${zone}";
-      extraDomainNames = [ "*.${zone}" ];
-      dnsProvider = "cloudflare";
-      dnsPropagationCheck = true;
-      credentialsFile = config.age.secrets.code-acme.path;
-    };
-  };
-
   users.users.nginx.extraGroups = [ "acme" ];
   services.nginx =
     let

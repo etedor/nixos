@@ -6,10 +6,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-
-    ./nginx.nix
-    ./restic.nix
-    ./zfs.nix
+    ./services
   ];
 
   networking.hostName = "code";
