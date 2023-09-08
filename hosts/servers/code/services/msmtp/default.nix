@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 let
+  hostName = config.networking.hostName;
   zone = config.lib.globals.zone;
 in
 {
@@ -28,7 +29,7 @@ in
         host = "smtp.mailgun.org";
         port = 587;
         auth = true;
-        from = "system@mg.${zone}";
+        from = "${hostName}@mg.${zone}";
         user = "system@mg.${zone}";
         passwordeval = "cat ${config.age.secrets.code-mailgun.path}";
       };
