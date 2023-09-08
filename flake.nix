@@ -12,7 +12,7 @@
       code = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./common/common.nix
+          ./common
           ./hosts/servers/code/configuration.nix
 
           agenix.nixosModules.default
@@ -23,7 +23,7 @@
       rt-sea = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./common/common.nix
+          ./common
           ./hosts/routers/rt-sea/configuration.nix
 
           agenix.nixosModules.default

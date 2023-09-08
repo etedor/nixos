@@ -16,7 +16,7 @@ in
 
   imports = [
     ./hardware-configuration.nix
-    ../common/router.nix
+    ../common
   ];
 
   networking = {
@@ -89,8 +89,8 @@ in
 
   networking.nftables =
     let
-      nft = import ../common/lib/nftables.nix { inherit lib; };
-      wg = import ../common/lib/wireguard.nix { inherit config; };
+      nft = import ../common/lib/nftables { inherit lib; };
+      wg = import ../common/lib/wireguard { inherit config; };
 
       zoneTrust = [ "wg0" "wg1" ];
       zoneUntrust = [ options.extIntf ];
@@ -137,7 +137,7 @@ in
 
   services.bird2 =
     let
-      bird = import ../common/lib/bird.nix;
+      bird = import ../common/lib/bird;
       defaults = {
         localAs = options.localAs;
         exportFilter = "rfc1918_v4";
