@@ -11,12 +11,17 @@ in
     fish
     starship
 
+    bat # replaces cat
+    exa # replaces ls
+    htop # replaces top
+    ripgrep # replaces grep
+
     curl
-    duf
     fd
     glances
     iotop
     jq
+    duf
     ncdu
     sshs
     tree
@@ -46,6 +51,11 @@ in
     enable = true;
     interactiveShellInit = ''
       starship init fish | source
+
+      alias ls='exa'
+      alias cat='bat -p'
+      alias top='htop'
+      alias grep='rg'
     '';
   };
 
