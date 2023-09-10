@@ -11,6 +11,21 @@ in
 
   home-manager.users.eric = {
     home.stateVersion = "23.05";
+    nixpkgs.overlays = [
+      (self: super: { lsd = pkgs.unstable.lsd; })
+    ];
+
+    programs.lsd = {
+      enable = true;
+      settings = {
+        date = "relative";
+        ignore-globs = [ ".git" ];
+        sorting = {
+          dir-grouping = "first";
+        };
+        total-size = true;
+      };
+    };
 
     programs.git = {
       enable = true;

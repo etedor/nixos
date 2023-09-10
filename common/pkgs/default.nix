@@ -13,7 +13,6 @@ in
 
     bat # replaces cat
     htop # replaces top
-    unstable.lsd # replaces ls and tree
     ripgrep # replaces grep
 
     curl
@@ -51,7 +50,7 @@ in
     interactiveShellInit = ''
       starship init fish | source
 
-      alias ls='lsd'
+      alias ls='lsd --almost-all'
       alias cat='bat --plain'
       alias top='htop'
       alias grep='rg'
