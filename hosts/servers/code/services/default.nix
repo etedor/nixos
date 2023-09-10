@@ -4,6 +4,7 @@
   imports = [
     ./acme
     ./flame
+    ./flatnotes
     ./nginx
     ./restic
     ./zfs

@@ -49,6 +49,10 @@ in
           };
         } // defaults);
 
+        "notes.${zone}" = ({
+          locations."/".proxyPass = "http://127.0.0.1:8080";
+        } // defaults);
+
         "nr.${zone}" = ({
           locations."/" = {
             proxyPass = "http://10.0.11.11:1880";
