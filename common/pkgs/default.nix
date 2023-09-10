@@ -12,8 +12,8 @@ in
     starship
 
     bat # replaces cat
-    exa # replaces ls
     htop # replaces top
+    unstable.lsd # replaces ls and tree
     ripgrep # replaces grep
 
     curl
@@ -24,7 +24,6 @@ in
     duf
     ncdu
     sshs
-    tree
     vim
     wget
 
@@ -52,10 +51,11 @@ in
     interactiveShellInit = ''
       starship init fish | source
 
-      alias ls='exa'
-      alias cat='bat -p'
+      alias ls='lsd'
+      alias cat='bat --plain'
       alias top='htop'
       alias grep='rg'
+      alias tree='lsd --tree'
     '';
   };
 
@@ -63,7 +63,7 @@ in
     enable = true;
     settings = {
       hostname = {
-        ssh_symbol = "⚡ ";
+        ssh_symbol = "📡 ";
         style = "bold green";
       };
       time = {
