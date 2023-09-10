@@ -2,8 +2,8 @@
 
 let
   bgptool = pkgs.writeShellScriptBin "bgptool" (builtins.readFile ./bin/bgptool.sh);
-  nix-build = pkgs.writeShellScriptBin "nix-build" (builtins.readFile ./bin/nix-build.sh);
-  nix-clone = pkgs.writeShellScriptBin "nix-clone" (builtins.readFile ./bin/nix-clone.sh);
+  nixos-build = pkgs.writeShellScriptBin "nixos-build" (builtins.readFile ./bin/nixos-build.sh);
+  nixos-clone = pkgs.writeShellScriptBin "nixos-clone" (builtins.readFile ./bin/nixos-clone.sh);
 in
 {
   nixpkgs.config.allowUnfree = true;
@@ -41,8 +41,8 @@ in
     whois
 
     bgptool
-    nix-build
-    nix-clone
+    nixos-build
+    nixos-clone
   ];
 
   programs.fish = {

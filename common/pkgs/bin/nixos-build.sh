@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Rebuild or test the NixOS system configuration.
-# Usage: nix-build.sh <action> [<flake name> <target host>]
-# Example: nix-build.sh test
+# Usage: nixos-build.sh <action> [<flake name> <target host>]
+# Example: nixos-build.sh test
 
 action=$1
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Clone a NixOS configuration from a git repository.
-# Usage: nix-clone.sh <git repository>
-# Example: nix-clone.sh git@github.com:etedor/nixos.git
+# Usage: nixos-clone.sh <git repository>
+# Example: nixos-clone.sh git@github.com:etedor/nixos.git
 
 set -e
 
