@@ -12,6 +12,7 @@ in
     starship
 
     bat # replaces cat
+    unstable.lsd # replaces ls
     htop # replaces top
     ripgrep # replaces grep
 
