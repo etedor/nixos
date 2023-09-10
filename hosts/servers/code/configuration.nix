@@ -6,6 +6,8 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+
+    # ./containers
     ./services
   ];
 
@@ -15,7 +17,6 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  virtualisation.docker.enable = true;
   virtualisation.vmware.guest.enable = true;
 
   networking.networkmanager.enable = true;

@@ -5,9 +5,10 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     agenix.url = "github:ryantm/agenix";
+    arion.url = "github:hercules-ci/arion";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, agenix }: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, agenix, arion }: {
     nixosConfigurations =
       let
         overlay-unstable = final: prev: {
@@ -24,7 +25,10 @@
       {
         code = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          modules = commonModules ++ [ ./hosts/servers/code/configuration.nix ];
+          modules = commonModules ++ [
+            ./hosts/servers/code/configuration.nix
+            arion.nixosModules.arion
+          ];
         };
 
         rt-sea = nixpkgs.lib.nixosSystem {
