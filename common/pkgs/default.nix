@@ -48,14 +48,16 @@ in
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
+      set fish_greeting
       starship init fish | source
-
-      alias ls='lsd --almost-all'
-      alias cat='bat --plain'
-      alias top='htop'
-      alias grep='rg'
-      alias tree='lsd --tree'
     '';
+    shellAliases = {
+      ls = "lsd --almost-all";
+      cat = "bat --plain";
+      top = "htop";
+      grep = "rg";
+      tree = "lsd --tree";
+    };
   };
 
   programs.starship = {
