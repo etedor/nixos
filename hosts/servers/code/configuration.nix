@@ -6,8 +6,6 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-
-    # ./containers
     ./services
   ];
 
@@ -31,20 +29,15 @@ in
     nix-direnv
   ];
 
-  nix.settings = {
-    keep-outputs = true;
-    keep-derivations = true;
-  };
-  environment.pathsToLink = [
-    "/share/nix-direnv"
-  ];
-
   programs.nix-ld.enable = true;
-  environment.variables = {
-    NIX_LD_LIBRARY_PATH = lib.mkForce (lib.makeLibraryPath [
-      pkgs.stdenv.cc.cc
-    ]);
-    NIX_LD = lib.mkForce "${pkgs.stdenv.cc.bintools.dynamicLinker}";
+  environment = {
+    pathsToLink = [ "/share/nix-direnv" ];
+    variables = {
+      NIX_LD_LIBRARY_PATH = lib.mkForce (lib.makeLibraryPath [
+        pkgs.stdenv.cc.cc
+      ]);
+      NIX_LD = lib.mkForce "${pkgs.stdenv.cc.bintools.dynamicLinker}";
+    };
   };
 
   networking.firewall.allowedTCPPorts = [ 8080 19999 50080 ];
