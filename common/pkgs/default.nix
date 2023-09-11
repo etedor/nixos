@@ -51,6 +51,7 @@ in
     interactiveShellInit = ''
       set fish_greeting
       starship init fish | source
+      direnv hook fish | source
     '';
     shellAliases = {
       ls = "lsd --almost-all";
