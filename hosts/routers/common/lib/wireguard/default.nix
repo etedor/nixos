@@ -9,4 +9,5 @@ let
 in
 {
   ports = mkPorts config;
+  publicKeys = import ./public-keys.nix;
 }
