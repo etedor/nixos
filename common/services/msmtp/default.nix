@@ -6,8 +6,8 @@ let
 in
 {
   age.secrets = {
-    all-mailgun = {
-      file = ../../../secrets/all-mailgun.age;
+    common-mailgun = {
+      file = ../../../secrets/common/mailgun.age;
       mode = "400";
       owner = "root";
       group = "root";
@@ -31,7 +31,7 @@ in
         auth = true;
         from = "${hostName}@mg.${zone}";
         user = "system@mg.${zone}";
-        passwordeval = "cat ${config.age.secrets.all-mailgun.path}";
+        passwordeval = "cat ${config.age.secrets.common-mailgun.path}";
       };
     };
   };

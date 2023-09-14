@@ -9,13 +9,13 @@ let
   code = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFVyPMj/Xq3Nxha/vj1S9xCaEWQMcjsweLpMeDDFjzmN";
   deus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAF4Hqb6luc7cU27HlOYM73wiSTw44lyik5iuZvBlnjg";
   rt-sea = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHqcrgjHPx1SbllfVSCLcj/g29HAW/qcv6i6ZYoNs99h";
-  all = [ code deus rt-sea ];
+  common = [ code deus rt-sea ];
 in
 {
-  "all-mailgun.age".publicKeys = eric ++ all;
-  "deus-acme.age".publicKeys = eric ++ [ code deus ];
-  "deus-restic-pass.age".publicKeys = eric ++ [ code deus ];
-  "deus-restic-repo.age".publicKeys = eric ++ [ code deus ];
-  "rt-sea-wg0.age".publicKeys = eric ++ [ rt-sea ];
-  "rt-sea-wg1.age".publicKeys = eric ++ [ rt-sea ];
+  "common/mailgun.age".publicKeys = eric ++ common;
+  "deus/acme.age".publicKeys = eric ++ [ code deus ];
+  "deus/restic-pass.age".publicKeys = eric ++ [ code deus ];
+  "deus/restic-repo.age".publicKeys = eric ++ [ code deus ];
+  "rt-sea/wg0-private-key.age".publicKeys = eric ++ [ rt-sea ];
+  "rt-sea/wg1-private-key.age".publicKeys = eric ++ [ rt-sea ];
 }

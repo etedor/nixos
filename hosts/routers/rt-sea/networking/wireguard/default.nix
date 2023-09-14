@@ -6,8 +6,8 @@
       secretsPath = ../../../../../secrets;
     in
     {
-      rt-sea-wg0 = { file = "${secretsPath}/rt-sea-wg0.age"; mode = "444"; };
-      rt-sea-wg1 = { file = "${secretsPath}/rt-sea-wg1.age"; mode = "444"; };
+      wg0-private-key = { file = "${secretsPath}/rt-sea/wg0-private-key.age"; mode = "444"; };
+      wg1-private-key = { file = "${secretsPath}/rt-sea/wg1-private-key.age"; mode = "444"; };
     };
 
   systemd.network =
@@ -19,7 +19,7 @@
         "10-wg0" = {
           netdevConfig = { Name = "wg0"; Kind = "wireguard"; };
           wireguardConfig = {
-            PrivateKeyFile = config.age.secrets.rt-sea-wg0.path;
+            PrivateKeyFile = config.age.secrets.wg0-private-key.path;
             ListenPort = 51820;
           };
           wireguardPeers = [{
@@ -33,7 +33,7 @@
         "20-wg1" = {
           netdevConfig = { Name = "wg1"; Kind = "wireguard"; };
           wireguardConfig = {
-            PrivateKeyFile = config.age.secrets.rt-sea-wg1.path;
+            PrivateKeyFile = config.age.secrets.wg1-private-key.path;
             ListenPort = 51821;
           };
           wireguardPeers = [

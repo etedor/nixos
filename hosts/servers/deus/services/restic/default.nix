@@ -7,14 +7,14 @@
   ];
 
   age.secrets = {
-    deus-restic-pass = {
-      file = ../../../../../secrets/deus-restic-pass.age;
+    restic-pass = {
+      file = ../../../../../secrets/deus/restic-pass.age;
       mode = "400";
       owner = "root";
       group = "root";
     };
-    deus-restic-repo = {
-      file = ../../../../../secrets/deus-restic-repo.age;
+    restic-repo = {
+      file = ../../../../../secrets/deus/restic-repo.age;
       mode = "400";
       owner = "root";
       group = "root";
@@ -30,8 +30,8 @@
     in
     {
       rsyncNet = {
-        repositoryFile = config.age.secrets.deus-restic-repo.path;
-        passwordFile = config.age.secrets.deus-restic-pass.path;
+        repositoryFile = config.age.secrets.restic-repo.path;
+        passwordFile = config.age.secrets.restic-pass.path;
         dynamicFilesFrom = lib.concatStringsSep " ; " (map
           (dir:
             "${pkgs.fd}/bin/fd -t f -H . ${dir.path} ${lib.concatMapStringsSep " " (pattern: "--exclude '${pattern}'") dir.exclude}"
