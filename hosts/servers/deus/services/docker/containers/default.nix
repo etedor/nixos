@@ -1,3 +1,8 @@
 { ... }:
 
-{ }
+{
+  imports = [
+    ./flame
+    ./flatnotes
+  ];
+}

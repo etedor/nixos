@@ -2,12 +2,12 @@
 
 {
   imports = [
-    # ./acme
-    # ./flame
-    # ./flatnotes
-    # ./nginx
-    # ./restic
+    ./acme
     ./docker
+    ./nginx
+    ./restic
     ./zfs
   ];
+
+  services.openssh.enable = true;
 }

@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  imports = [ ./containers ];
+
   environment.systemPackages = [ pkgs.arion ];
   virtualisation.arion.backend = "docker";
   virtualisation.docker = {

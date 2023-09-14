@@ -5,8 +5,8 @@ let
 in
 {
   age.secrets = {
-    code-acme = {
-      file = ../../../../../secrets/code-acme.age;
+    deus-acme = {
+      file = ../../../../../secrets/deus-acme.age;
       mode = "400";
       owner = "acme";
       group = "acme";
@@ -22,7 +22,7 @@ in
       extraDomainNames = [ "*.${zone}" ];
       dnsProvider = "cloudflare";
       dnsPropagationCheck = true;
-      credentialsFile = config.age.secrets.code-acme.path;
+      credentialsFile = config.age.secrets.deus-acme.path;
     };
   };
 }

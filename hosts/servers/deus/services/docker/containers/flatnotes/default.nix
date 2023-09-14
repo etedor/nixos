@@ -13,7 +13,7 @@
       service.volumes = [
         {
           type = "bind";
-          source = "/home/eric/code/notes";
+          source = "/pool0/users/eric/notes";
           target = "/data";
         }
       ];
