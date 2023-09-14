@@ -31,6 +31,14 @@
           ];
         };
 
+        deus = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = commonModules ++ [
+            ./hosts/servers/deus/configuration.nix
+            arion.nixosModules.arion
+          ];
+        };
+
         rt-sea = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = commonModules ++ [ ./hosts/routers/rt-sea/configuration.nix ];
