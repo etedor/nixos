@@ -40,6 +40,10 @@ in
           hostname = "10.0.2.153";
           user = "eric";
         };
+        "deus" = {
+          hostname = "10.0.5.202";
+          user = "eric";
+        };
         "rt-sea" = {
           hostname = "10.127.99.1";
           user = "eric";
