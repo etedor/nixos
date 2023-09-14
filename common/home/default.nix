@@ -31,6 +31,11 @@ in
       enable = true;
       userName = "Eric Tedor";
       userEmail = "eric@tedor.org";
+      extraConfig = {
+        init = {
+          defaultBranch = "main";
+        };
+      };
     };
 
     programs.ssh = {
