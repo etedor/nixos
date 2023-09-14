@@ -1,7 +1,6 @@
 { config, lib, ... }:
 
 {
-
   networking = {
     hostName = "deus";
     domain = "int.et42.net";
