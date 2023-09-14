@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -7,9 +7,7 @@
     # ./flatnotes
     # ./nginx
     # ./restic
+    ./docker
     ./zfs
   ];
-
-  environment.systemPackages = [ pkgs.arion ];
-  virtualisation.arion.backend = "docker";
 }

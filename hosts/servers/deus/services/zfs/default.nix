@@ -8,7 +8,7 @@ in
 
   boot = {
     supportedFilesystems = [ "zfs" ];
-    # zfs.extraPools = [ "pool0" ];
+    zfs.extraPools = [ "pool0" ];
   };
   networking.hostId = "73d97024";
 
