@@ -2,11 +2,11 @@
 
 {
   imports = [
-    ./acme
-    ./flame
-    ./flatnotes
-    ./nginx
-    ./restic
+    # ./acme
+    # ./flame
+    # ./flatnotes
+    # ./nginx
+    # ./restic
     ./zfs
   ];
 
