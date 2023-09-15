@@ -6,6 +6,7 @@
     ./docker
     ./nginx
     ./restic
+    ./samba
     ./zfs
   ];
 

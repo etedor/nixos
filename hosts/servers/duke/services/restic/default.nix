@@ -24,8 +24,7 @@
   services.restic.backups =
     let
       backupDirs = [
-        { path = "/pool0/users/eric/code/"; exclude = [ "**/.git/**" ]; }
-        { path = "/pool0/users/eric/notes/"; exclude = [ ]; }
+        { path = "/pool0/users/eric/"; exclude = [ "**/.git/**" ]; }
       ];
     in
     {
