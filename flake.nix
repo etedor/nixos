@@ -31,10 +31,10 @@
           ];
         };
 
-        deus = nixpkgs.lib.nixosSystem {
+        duke = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = commonModules ++ [
-            ./hosts/servers/deus/configuration.nix
+            ./hosts/servers/duke/configuration.nix
             arion.nixosModules.arion
           ];
         };

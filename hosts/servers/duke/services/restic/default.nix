@@ -8,13 +8,13 @@
 
   age.secrets = {
     restic-pass = {
-      file = ../../../../../secrets/deus/restic-pass.age;
+      file = ../../../../../secrets/duke/restic-pass.age;
       mode = "400";
       owner = "root";
       group = "root";
     };
     restic-repo = {
-      file = ../../../../../secrets/deus/restic-repo.age;
+      file = ../../../../../secrets/duke/restic-repo.age;
       mode = "400";
       owner = "root";
       group = "root";

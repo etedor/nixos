@@ -6,7 +6,7 @@ in
 {
   age.secrets = {
     acme = {
-      file = ../../../../../secrets/deus/acme.age;
+      file = ../../../../../secrets/duke/acme.age;
       mode = "400";
       owner = "acme";
       group = "acme";

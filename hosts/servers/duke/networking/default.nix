@@ -2,7 +2,7 @@
 
 {
   networking = {
-    hostName = "deus";
+    hostName = "duke";
     domain = "int.et42.net";
     useDHCP = false; # Managed by systemd-networkd
   };
