@@ -49,6 +49,10 @@ in
           };
         } // defaults);
 
+        "movies.${zone}" = ({
+          locations."/".proxyPass = "http://127.0.0.1:7878";
+        } // defaults);
+
         "notes.${zone}" = ({
           locations."/".proxyPass = "http://127.0.0.1:8081";
         } // defaults);

@@ -11,6 +11,13 @@
         "read only" = "no";
         browsable = "yes";
       };
+      media = {
+        path = "/pool0/media";
+        "valid users" = [ "eric" ];
+        "write list" = [ "eric" ];
+        "read only" = "yes";
+        browsable = "yes";
+      };
     };
   };
 
