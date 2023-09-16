@@ -22,7 +22,7 @@ in
         {
           type = "bind";
           source = "/pool0/media/downloads";
-          target = "/downloads";
+          target = "/media/downloads";
         }
       ];
       service.ports = [ "8080:8080" ];

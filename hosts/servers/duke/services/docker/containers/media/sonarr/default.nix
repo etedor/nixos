@@ -21,13 +21,13 @@ in
         }
         {
           type = "bind";
-          source = "/pool0/media/library/tv";
-          target = "/tv";
+          source = "/pool0/media/downloads";
+          target = "/media/downloads";
         }
         {
           type = "bind";
-          source = "/pool0/media/downloads";
-          target = "/downloads";
+          source = "/pool0/media/library/tv";
+          target = "/media/library/tv";
         }
       ];
       service.ports = [ "8989:8989" ];
