@@ -17,11 +17,12 @@ in
     ripgrep # replaces grep
 
     curl
+    duf
     fd
     glances
     iotop
     jq
-    duf
+    lnav
     ncdu
     sshs
     vim
