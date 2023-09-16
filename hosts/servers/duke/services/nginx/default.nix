@@ -50,7 +50,7 @@ in
         } // defaults);
 
         "notes.${zone}" = ({
-          locations."/".proxyPass = "http://127.0.0.1:8080";
+          locations."/".proxyPass = "http://127.0.0.1:8081";
         } // defaults);
 
         "nr.${zone}" = ({
@@ -58,6 +58,10 @@ in
             proxyPass = "http://10.0.11.11:1880";
             proxyWebsockets = true;
           };
+        } // defaults);
+
+        "nzb.${zone}" = ({
+          locations."/".proxyPass = "http://127.0.0.1:8080";
         } // defaults);
 
         "og.${zone}" = ({

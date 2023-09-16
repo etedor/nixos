@@ -4,5 +4,6 @@
   imports = [
     ./flame
     ./flatnotes
+    ./sabnzbd
   ];
 }

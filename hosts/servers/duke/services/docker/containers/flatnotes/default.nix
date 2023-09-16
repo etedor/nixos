@@ -17,7 +17,7 @@
           target = "/data";
         }
       ];
-      service.ports = [ "8080:8080" ];
+      service.ports = [ "8081:8080" ];
       service.restart = "unless-stopped";
     };
   };
