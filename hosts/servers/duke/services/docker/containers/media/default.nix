@@ -7,6 +7,7 @@ in
   imports = [
     ./hydra
     ./jellyfin
+    ./overseerr
     ./radarr
     ./sabnzbd
     ./sonarr
@@ -38,6 +39,10 @@ in
 
         "nzb.${zone}" = ({
           locations."/".proxyPass = "http://127.0.0.1:8080";
+        } // defaults);
+
+        "requests.${zone}" = ({
+          locations."/".proxyPass = "http://127.0.0.1:5055";
         } // defaults);
 
         "tv.${zone}" = ({
