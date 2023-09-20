@@ -12,8 +12,7 @@ in
 {
   users.users.root = {
     openssh.authorizedKeys.keys = authorizedKeys;
-    shell = shell;
-  };
+  } // (if config.wsl.enable then { } else { shell = shell; });
 
   users.users.eric = {
     isNormalUser = true;

@@ -6,6 +6,10 @@
 
     agenix.url = "github:ryantm/agenix";
     arion.url = "github:hercules-ci/arion";
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, agenix, arion }: {
@@ -43,6 +47,7 @@
           system = "x86_64-linux";
           modules = commonModules ++ [
             ./hosts/clients/machina/configuration.nix
+            nixos-wsl.nixosModules.wsl
           ];
         };
 
