@@ -10,17 +10,18 @@ let
   shell = if config.programs.nix-ld.enable then pkgs.bash else pkgs.fish;
 in
 {
+  users.users.root = {
+    openssh.authorizedKeys.keys = authorizedKeys;
+    shell = shell;
+  };
+
   users.users.eric = {
     isNormalUser = true;
     description = "Eric Tedor";
     extraGroups = [ "docker" "networkmanager" "wheel" ];
     openssh.authorizedKeys.keys = authorizedKeys;
     shell = shell;
-  };
-
-  users.users.root = {
-    openssh.authorizedKeys.keys = authorizedKeys;
-    shell = shell;
+    uid = 1000;
   };
 }
 
