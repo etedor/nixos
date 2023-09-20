@@ -12,7 +12,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, agenix, arion }: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, agenix, arion, nixos-wsl }: {
     nixosConfigurations =
       let
         overlay-unstable = final: prev: {
