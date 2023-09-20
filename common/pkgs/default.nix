@@ -21,6 +21,7 @@ in
     fd
     glances
     iotop
+    jless
     jq
     lnav
     ncdu
