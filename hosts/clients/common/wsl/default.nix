@@ -1,7 +1,12 @@
 { pkgs, ... }:
 
 let
-  nixos-wsl = import ./nixos-wsl;
+  nixosWslSrc = pkgs.fetchGit {
+    url = "https://github.com/nix-community/NixOS-WSL.git";
+    rev = "e7d93d0";
+  };
+
+  nixos-wsl = import nixosWslSrc;
 in
 {
   imports = [
