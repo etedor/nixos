@@ -6,4 +6,8 @@
   imports = [
     ../common/wsl
   ];
+
+  networking = {
+    hostName = "machina";
+  };
 }
