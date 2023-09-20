@@ -39,6 +39,13 @@
           ];
         };
 
+        machina = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = commonModules ++ [
+            ./hosts/clients/machina/configuration.nix
+          ];
+        };
+
         rt-sea = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = commonModules ++ [ ./hosts/routers/rt-sea/configuration.nix ];
