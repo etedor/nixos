@@ -7,7 +7,8 @@ in
   imports = [
     ./hydra
     ./jellyfin
-    ./overseerr
+    ./jellyseerr
+    ./prowlarr
     ./radarr
     ./sabnzbd
     ./sonarr
@@ -43,6 +44,10 @@ in
 
         "requests.${zone}" = ({
           locations."/".proxyPass = "http://127.0.0.1:5055";
+        } // defaults);
+
+        "tiger.${zone}" = ({
+          locations."/".proxyPass = "http://127.0.0.1:9696";
         } // defaults);
 
         "tv.${zone}" = ({
