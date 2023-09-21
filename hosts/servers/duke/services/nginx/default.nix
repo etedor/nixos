@@ -77,6 +77,10 @@ in
           locations."/favicon.ico" = pduFavicon;
         } // defaults);
 
+        "rss.${zone}" = ({
+          locations."/".proxyPass = "http://127.0.0.1:8091";
+        } // defaults);
+
         "ups.${zone}" = ({
           locations."/".proxyPass = "http://10.0.2.11:80";
         } // defaults);
