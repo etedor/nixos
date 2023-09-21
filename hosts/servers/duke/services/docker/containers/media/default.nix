@@ -5,7 +5,6 @@ let
 in
 {
   imports = [
-    ./hydra
     ./jellyfin
     ./jellyseerr
     ./prowlarr
@@ -26,10 +25,6 @@ in
     in
     {
       virtualHosts = {
-        "hydra.${zone}" = ({
-          locations."/".proxyPass = "http://127.0.0.1:5076";
-        } // defaults);
-
         "jf.${zone}" = ({
           locations."/".proxyPass = "http://127.0.0.1:8096";
         } // defaults);
