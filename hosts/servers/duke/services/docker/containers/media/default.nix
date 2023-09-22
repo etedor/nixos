@@ -40,12 +40,12 @@ in
           locations."/".proxyPass = "http://127.0.0.1:8080";
         } // defaults);
 
-        "requests.${zone}" = ({
-          locations."/".proxyPass = "http://127.0.0.1:5055";
+        "prowl.${zone}" = ({
+          locations."/".proxyPass = "http://127.0.0.1:9696";
         } // defaults);
 
-        "tiger.${zone}" = ({
-          locations."/".proxyPass = "http://127.0.0.1:9696";
+        "requests.${zone}" = ({
+          locations."/".proxyPass = "http://127.0.0.1:5055";
         } // defaults);
 
         "tv.${zone}" = ({
