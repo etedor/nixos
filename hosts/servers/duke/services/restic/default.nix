@@ -21,21 +21,33 @@
     };
   };
 
+  # cf. https://web.archive.org/web/20221209151134/https://felschr.com/blog/nixos-restic-backups
   services.restic.backups =
     let
-      backupDirs = [
-        { path = "/pool0/users/eric/"; exclude = [ "**/.git/**" ]; }
+      dirs = [
+        { path = "/pool0/users/eric"; excludes = [ "**/.git" ]; }
       ];
+
+      fdCmd = dir:
+        let
+          excludes = builtins.concatStringsSep " " (map (ex: "--exclude=${ex}") dir.excludes);
+        in
+        ''
+          ${pkgs.fd}/bin/fd \
+            --hidden \
+            --type f \
+            ${excludes} \
+            . ${dir.path} \
+            | sed "s/\\[/\\\\\\[/g" | sed "s/\\]/\\\\\\]/g"
+        '';
+      fdCmds = builtins.concatStringsSep "\n" (map fdCmd dirs);
+
     in
     {
       rsyncNet = {
         repositoryFile = config.age.secrets.restic-repo.path;
         passwordFile = config.age.secrets.restic-pass.path;
-        dynamicFilesFrom = lib.concatStringsSep " ; " (map
-          (dir:
-            "${pkgs.fd}/bin/fd -t f -H . ${dir.path} ${lib.concatMapStringsSep " " (pattern: "--exclude '${pattern}'") dir.exclude}"
-          )
-          backupDirs);
+        dynamicFilesFrom = fdCmds;
         timerConfig = {
           OnCalendar = "04:00";
           Persistent = true;
@@ -43,5 +55,8 @@
         };
       };
     };
+
+
+
 
 }
