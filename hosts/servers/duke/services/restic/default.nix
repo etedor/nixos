@@ -44,6 +44,12 @@
         repositoryFile = config.age.secrets.restic-repo.path;
         passwordFile = config.age.secrets.restic-pass.path;
         dynamicFilesFrom = fdCmds;
+        pruneOpts = [
+          "--keep-daily 7"
+          "--keep-weekly 5"
+          "--keep-monthly 12"
+          "--keep-yearly 10"
+        ];
         timerConfig = {
           OnCalendar = "04:00";
           Persistent = true;
