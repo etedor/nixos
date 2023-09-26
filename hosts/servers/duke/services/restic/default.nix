@@ -35,7 +35,8 @@
             --type file \
             ${excludes} \
             . ${spec.path} \
-            | sed "s/\\[/\\\\\\[/g" | sed "s/\\]/\\\\\\]/g"
+            | sed "s/\\[/\\\\\\[/g"
+            | sed "s/\\]/\\\\\\]/g"
         '';
       fdCmds = builtins.concatStringsSep "\n" (map fdCmd backups.specs);
     in
