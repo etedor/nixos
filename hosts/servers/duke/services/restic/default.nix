@@ -24,32 +24,20 @@
   # cf. https://web.archive.org/web/20221209151134/https://felschr.com/blog/nixos-restic-backups
   services.restic.backups =
     let
-      dirs = [
-        {
-          path = "/pool0/docker/volumes";
-          excludes = [
-            "media_jellyfin_config/_data/data/metadata"
-            "media_radarr_config/_data/MediaCover"
-            "media_sonarr_config/_data/MediaCover"
-          ];
-        }
-        { path = "/pool0/users/eric"; excludes = [ "**/.git" ]; }
-      ];
-
-      fdCmd = dir:
+      backups = import ./backups.nix;
+      fdCmd = spec:
         let
-          excludes = builtins.concatStringsSep " " (map (ex: "--exclude=${ex}") dir.excludes);
+          excludes = builtins.concatStringsSep " " (map (ex: "--exclude=${ex}") spec.excludes);
         in
         ''
           ${pkgs.fd}/bin/fd \
             --hidden \
-            --type f \
+            --type file \
             ${excludes} \
-            . ${dir.path} \
+            . ${spec.path} \
             | sed "s/\\[/\\\\\\[/g" | sed "s/\\]/\\\\\\]/g"
         '';
-      fdCmds = builtins.concatStringsSep "\n" (map fdCmd dirs);
-
+      fdCmds = builtins.concatStringsSep "\n" (map fdCmd backups.specs);
     in
     {
       rsyncNet = {
