@@ -8,6 +8,7 @@
     ../common
     ./lib
     ./networking
+    ./services
     ./hardware-configuration.nix
   ];
 }

@@ -31,6 +31,12 @@ in
               dpts = [ 179 ];
             } // tcpAccept)
             ({
+              name = "DNS";
+              iifs = zoneTrust;
+              dips = [ locals.routerId ];
+              dpts = [ 53 ];
+            } // udpAccept)
+            ({
               name = "SSH";
               iifs = zoneTrust;
               dips = [ locals.routerId ];
