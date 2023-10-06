@@ -3,6 +3,7 @@
 {
   imports = [
     ./acme
+    ./ddi
     ./docker
     ./nginx
     ./restic
