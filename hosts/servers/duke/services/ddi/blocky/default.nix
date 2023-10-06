@@ -15,6 +15,22 @@
           "10.127.99.1"
         ];
       };
+      conditional = {
+        fallbackUpstream = false;
+
+        mapping =
+          let
+            dnsmasq = "127.0.0.1:5353";
+          in
+          {
+            "." = dnsmasq;
+            "in-addr.arpa" = dnsmasq;
+
+            "et42.net" = dnsmasq;
+            "int.tedor.org" = dnsmasq;
+            "lab.tedor.org" = dnsmasq;
+          };
+      };
     };
   };
 
